@@ -14,6 +14,7 @@ import siteContent from './data/site_content.json';
 import constructionData from './data/construction_products.json';
 import constructionSafetyShirts from './data/construction_safety_shirts.json';
 import safetyProducts from './data/safety_products.json';
+import safetyShoes from './data/safety_products_shoes.json';
 
 // Legacy screens (to be refactored later)
 import {
@@ -88,6 +89,7 @@ const VellumApp = () => {
   // Consolidated product data
   const allProductsData = {
     safetyProducts,
+    safetyShoes,
     constructionSafetyShirts,
     constructionData,
     productsData
@@ -306,7 +308,7 @@ const VellumApp = () => {
                             <Text variant="headingMd" as="h3">{category.name}</Text>
                             <Text>{category.description}</Text>
                             <Button onClick={() => {
-                              if (category.id === 'construction-safety-shirts') {
+                              if (category.id === 'construction-safety-shirts' || category.id === 'safety-footwear' || category.id === 'safety-equipment') {
                                 setSelectedCategoryId(category.id);
                                 setCurrentScreen('category-products');
                               } else {
@@ -643,6 +645,7 @@ const VellumApp = () => {
             onProductClick={handleProductClick}
             categoriesData={categoriesData}
             safetyProducts={safetyProducts}
+            safetyShoes={safetyShoes}
             constructionSafetyShirts={constructionSafetyShirts}
             currentPersona={currentPersona}
             addToCart={addToCart}

@@ -31,6 +31,7 @@ const ProductDetailScreen = ({
   const findProduct = (id) => {
     const sources = [
       allProductsData.safetyProducts?.products || [],
+      allProductsData.safetyShoes?.products || [],
       allProductsData.constructionSafetyShirts?.products || [],
       allProductsData.constructionData?.products || [],
       allProductsData.productsData?.products || []
@@ -80,6 +81,10 @@ const ProductDetailScreen = ({
   const handleBackNavigation = () => {
     if (displayProduct.product_type === "Hi-Vis Safety Shirt") {
       onNavigate('category-products', { categoryId: 'construction-safety-shirts' });
+    } else if (displayProduct.product_type === "Safety Footwear") {
+      onNavigate('category-products', { categoryId: 'safety-footwear' });
+    } else if (displayProduct.product_type === "Hard Hats") {
+      onNavigate('category-products', { categoryId: 'safety-equipment' });
     } else {
       onNavigate('products');
     }
@@ -123,7 +128,9 @@ const ProductDetailScreen = ({
       title={displayProduct.title || displayProduct.name}
       subtitle={`${displayProduct.vendor ? `${displayProduct.vendor} | ` : ''}${displayProduct.sku ? `SKU: ${displayProduct.sku}` : ''} ${displayProduct.brand ? `| Brand: ${displayProduct.brand}` : ''}`}
       backAction={{
-        content: displayProduct.product_type === "Hi-Vis Safety Shirt" ? 'Construction Safety Shirts' : 'Products', 
+        content: displayProduct.product_type === "Hi-Vis Safety Shirt" ? 'Construction Safety Shirts' : 
+                 displayProduct.product_type === "Safety Footwear" ? 'Safety Footwear' :
+                 displayProduct.product_type === "Hard Hats" ? 'Safety Equipment' : 'Products', 
         onAction: handleBackNavigation
       }}
       primaryAction={{

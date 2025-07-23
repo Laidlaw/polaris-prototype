@@ -25,6 +25,8 @@ const CategoryProductsScreen = ({
     categoryProducts = allProductsData.constructionSafetyShirts?.products || [];
   } else if (selectedCategoryId === 'safety-equipment') {
     categoryProducts = allProductsData.safetyProducts?.products || [];
+  } else if (selectedCategoryId === 'safety-footwear') {
+    categoryProducts = allProductsData.safetyShoes?.products || [];
   }
 
   return (

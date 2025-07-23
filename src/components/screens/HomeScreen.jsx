@@ -17,17 +17,18 @@ const HomeScreen = ({
   onProductClick,
   categoriesData,
   safetyProducts,
-  constructionSafetyShirts
+  constructionSafetyShirts,
+  safetyShoes
 }) => {
   // Get featured products from different categories
   const featuredProducts = [
     safetyProducts.products.find(p => p.product_type === "Hard Hats"),
     constructionSafetyShirts.products[0],
-    safetyProducts.products.find(p => p.title.includes("Safety") && p.product_type === "Safety Equipment")
+    safetyShoes?.products[0]
   ].filter(Boolean);
 
   const handleCategoryClick = (categoryId) => {
-    if (categoryId === 'construction-safety-shirts') {
+    if (categoryId === 'construction-safety-shirts' || categoryId === 'safety-footwear' || categoryId === 'safety-equipment') {
       onNavigate('category-products', { categoryId });
     } else {
       onNavigate('products');
@@ -128,6 +129,8 @@ const HomeScreen = ({
                     } else if (category.id === 'safety-equipment') {
                       const hardHat = safetyProducts.products.find(p => p.product_type === "Hard Hats");
                       categoryImage = hardHat?.images[0];
+                    } else if (category.id === 'safety-footwear') {
+                      categoryImage = safetyShoes?.products[0]?.images[0];
                     }
 
                     return (

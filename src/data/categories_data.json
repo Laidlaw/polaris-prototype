@@ -55,6 +55,14 @@
       "icon": "⚡",
       "color": "#FFD700",
       "productCount": 92
+    },
+    {
+      "id": "safety-footwear",
+      "name": "Safety Footwear",
+      "description": "Steel toe boots, composite toe shoes, and safety footwear",
+      "icon": "👢",
+      "color": "#8B4513",
+      "productCount": 50
     }
   ]
 }
