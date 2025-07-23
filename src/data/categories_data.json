@@ -1,0 +1,52 @@
+{
+  "categories": [
+    {
+      "id": "safety-equipment",
+      "name": "Safety Equipment",
+      "description": "Personal protective equipment and safety gear",
+      "icon": "🦺",
+      "color": "#FF6B35",
+      "productCount": 47
+    },
+    {
+      "id": "power-tools",
+      "name": "Power Tools",
+      "description": "Professional grade tools and equipment",
+      "icon": "🔧",
+      "color": "#C41E3A",
+      "productCount": 89
+    },
+    {
+      "id": "hand-tools",
+      "name": "Hand Tools",
+      "description": "Essential hand tools for every job",
+      "icon": "🔨",
+      "color": "#2E8B57",
+      "productCount": 156
+    },
+    {
+      "id": "lumber-materials",
+      "name": "Lumber & Materials",
+      "description": "Quality lumber and building materials",
+      "icon": "🪵",
+      "color": "#8B4513",
+      "productCount": 234
+    },
+    {
+      "id": "work-apparel",
+      "name": "Work Apparel",
+      "description": "Durable workwear and clothing",
+      "icon": "👔",
+      "color": "#4169E1",
+      "productCount": 78
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "description": "Electrical supplies and components",
+      "icon": "⚡",
+      "color": "#FFD700",
+      "productCount": 92
+    }
+  ]
+}

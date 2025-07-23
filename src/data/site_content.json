@@ -1,0 +1,94 @@
+{
+  "site": {
+    "name": "BuildSupply Pro",
+    "tagline": "Professional Construction Equipment & Supplies",
+    "description": "Your trusted partner for quality construction tools, safety equipment, and building materials. Serving contractors and subcontractors nationwide.",
+    "phone": "(555) 847-2663",
+    "email": "support@buildsupplypro.com",
+    "address": {
+      "street": "2847 Industrial Blvd",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "85034"
+    }
+  },
+  "hero": {
+    "title": "Professional Construction Equipment & Supplies",
+    "subtitle": "Quality tools and materials for contractors who demand excellence. Net payment terms available for qualified businesses.",
+    "features": [
+      "Net 30/60/90 payment terms",
+      "Volume pricing discounts",
+      "Same-day shipping available",
+      "Dedicated account management"
+    ],
+    "stats": [
+      { "number": "15,000+", "label": "Products in stock" },
+      { "number": "2,500+", "label": "Contractor customers" },
+      { "number": "48hrs", "label": "Average delivery time" }
+    ]
+  },
+  "businessTypes": [
+    { "value": "general-contractor", "label": "General Contractor" },
+    { "value": "electrical-contractor", "label": "Electrical Contractor" },
+    { "value": "plumbing-contractor", "label": "Plumbing Contractor" },
+    { "value": "hvac-contractor", "label": "HVAC Contractor" },
+    { "value": "roofing-contractor", "label": "Roofing Contractor" },
+    { "value": "concrete-contractor", "label": "Concrete Contractor" },
+    { "value": "landscaping", "label": "Landscaping" },
+    { "value": "maintenance", "label": "Facility Maintenance" },
+    { "value": "other", "label": "Other" }
+  ],
+  "paymentTerms": [
+    { "value": "net-30", "label": "Net 30", "description": "Payment due 30 days after invoice" },
+    { "value": "net-60", "label": "Net 60", "description": "Payment due 60 days after invoice" },
+    { "value": "net-90", "label": "Net 90", "description": "Payment due 90 days after invoice" }
+  ],
+  "testimonials": [
+    {
+      "name": "Mike Rodriguez",
+      "company": "Rodriguez Construction LLC",
+      "role": "General Contractor",
+      "text": "BuildSupply Pro has been our go-to supplier for 5 years. Their net terms and volume pricing help us manage cash flow on big projects.",
+      "rating": 5,
+      "verified": true
+    },
+    {
+      "name": "Sarah Chen",
+      "company": "Elite Electrical Services",
+      "role": "Electrical Contractor",
+      "text": "Fast delivery and quality products. Their account management team really understands our business needs.",
+      "rating": 5,
+      "verified": true
+    },
+    {
+      "name": "Dave Thompson",
+      "company": "Thompson HVAC",
+      "role": "HVAC Contractor",
+      "text": "Great selection of Milwaukee tools and competitive pricing. The online ordering system makes restocking easy.",
+      "rating": 4,
+      "verified": true
+    }
+  ],
+  "features": {
+    "creditTerms": {
+      "title": "Flexible Payment Terms",
+      "description": "Net 30, 60, or 90-day terms for qualified businesses",
+      "icon": "💳"
+    },
+    "volumePricing": {
+      "title": "Volume Discounts",
+      "description": "Save more when you buy more with our tier pricing",
+      "icon": "📊"
+    },
+    "fastShipping": {
+      "title": "Fast Delivery",
+      "description": "Same-day shipping on orders placed before 2PM",
+      "icon": "🚚"
+    },
+    "accountManager": {
+      "title": "Dedicated Support",
+      "description": "Personal account manager for all your business needs",
+      "icon": "👤"
+    }
+  }
+}

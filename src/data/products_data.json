@@ -1,0 +1,278 @@
+{
+  "products": [
+    {
+      "id": "milwaukee-heated-vest",
+      "name": "Milwaukee M12 Heated AXIS Vest",
+      "categoryId": "work-apparel",
+      "sku": "302B-21XL",
+      "brand": "Milwaukee",
+      "price": 249.99,
+      "description": "Stay warm and comfortable with Milwaukee's industry-leading heated vest technology. Features up to 6 hours of runtime and three heat settings.",
+      "icon": "🦺",
+      "image": "/images/milwaukee-heated-vest.jpg",
+      "inStock": true,
+      "stockQuantity": 47,
+      "minimumOrder": 1,
+      "features": [
+        "Up to 6 hours of runtime on low setting",
+        "Three heat settings for optimal temperature control",
+        "Wind and water resistant",
+        "Rechargeable M12 battery included",
+        "Machine washable"
+      ],
+      "specifications": {
+        "Material": "Polyester shell with fleece lining",
+        "Battery": "M12 REDLITHIUM 2.0Ah",
+        "Runtime": "6hrs (Low), 3hrs (Medium), 2hrs (High)",
+        "Sizes": "S, M, L, XL, XXL, XXXL",
+        "Weight": "1.8 lbs",
+        "Certification": "CE, FCC"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 9, "price": 249.99, "savings": 0 },
+        { "minQty": 10, "maxQty": 24, "price": 224.99, "savings": 25.00 },
+        { "minQty": 25, "maxQty": 49, "price": 199.99, "savings": 50.00 },
+        { "minQty": 50, "maxQty": null, "price": 187.49, "savings": 62.50 }
+      ],
+      "reviews": {
+        "average": 4.7,
+        "count": 234,
+        "breakdown": {
+          "5": 167,
+          "4": 45,
+          "3": 15,
+          "2": 4,
+          "1": 3
+        }
+      }
+    },
+    {
+      "id": "class-2-safety-vest",
+      "name": "ANSI Class 2 High-Visibility Safety Vest",
+      "categoryId": "safety-equipment",
+      "sku": "SV-200-ORG",
+      "brand": "ProSafe",
+      "price": 24.99,
+      "description": "ANSI/ISEA 107-2020 compliant Class 2 safety vest with reflective strips. Perfect for roadwork, construction, and industrial applications.",
+      "icon": "🦺",
+      "image": "/images/safety-vest-orange.jpg",
+      "inStock": true,
+      "stockQuantity": 500,
+      "minimumOrder": 1,
+      "features": [
+        "ANSI/ISEA 107-2020 Class 2 compliant",
+        "360-degree visibility with 2-inch reflective tape",
+        "Breathable mesh material",
+        "Hook and loop front closure",
+        "Five-point breakaway design for safety"
+      ],
+      "specifications": {
+        "Material": "100% Polyester mesh",
+        "Color": "Orange with silver reflective tape",
+        "Sizes": "S/M, L/XL, 2XL/3XL, 4XL/5XL",
+        "Weight": "0.3 lbs",
+        "Certification": "ANSI/ISEA 107-2020 Class 2"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 9, "price": 24.99, "savings": 0 },
+        { "minQty": 10, "maxQty": 49, "price": 21.99, "savings": 3.00 },
+        { "minQty": 50, "maxQty": 99, "price": 18.99, "savings": 6.00 },
+        { "minQty": 100, "maxQty": null, "price": 15.99, "savings": 9.00 }
+      ],
+      "reviews": {
+        "average": 4.3,
+        "count": 89,
+        "breakdown": {
+          "5": 52,
+          "4": 25,
+          "3": 8,
+          "2": 3,
+          "1": 1
+        }
+      }
+    },
+    {
+      "id": "milwaukee-drill-driver",
+      "name": "Milwaukee M18 FUEL Hammer Drill/Driver",
+      "categoryId": "power-tools",
+      "sku": "2804-20",
+      "brand": "Milwaukee",
+      "price": 179.99,
+      "description": "The most powerful 18V cordless drill in its class. Delivers up to 1,200 in-lbs of torque and up to 2X longer motor life.",
+      "icon": "🔧",
+      "image": "/images/milwaukee-hammer-drill.jpg",
+      "inStock": true,
+      "stockQuantity": 23,
+      "minimumOrder": 1,
+      "features": [
+        "POWERSTATE brushless motor delivers 1,200 in-lbs of torque",
+        "REDLINK PLUS intelligence prevents damage from overload",
+        "All-metal gear case and 1/2\" metal chuck",
+        "LED light for enhanced visibility",
+        "Compatible with all M18 batteries"
+      ],
+      "specifications": {
+        "Chuck": "1/2\" metal ratcheting",
+        "Torque": "1,200 in-lbs",
+        "Speed": "0-550 / 0-1,800 RPM",
+        "IPM": "0-8,250 / 0-27,000",
+        "Length": "8.1\"",
+        "Weight": "2.3 lbs (tool only)"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 4, "price": 179.99, "savings": 0 },
+        { "minQty": 5, "maxQty": 9, "price": 161.99, "savings": 18.00 },
+        { "minQty": 10, "maxQty": 19, "price": 152.99, "savings": 27.00 },
+        { "minQty": 20, "maxQty": null, "price": 143.99, "savings": 36.00 }
+      ],
+      "reviews": {
+        "average": 4.8,
+        "count": 312,
+        "breakdown": {
+          "5": 245,
+          "4": 51,
+          "3": 12,
+          "2": 3,
+          "1": 1
+        }
+      }
+    },
+    {
+      "id": "hard-hat-white",
+      "name": "MSA V-Gard Hard Hat - White",
+      "categoryId": "safety-equipment",
+      "sku": "475358",
+      "brand": "MSA",
+      "price": 18.99,
+      "description": "Industry-standard Type I hard hat with 4-point suspension. ANSI Z89.1 certified for superior protection and comfort.",
+      "icon": "⛑️",
+      "image": "/images/msa-hard-hat-white.jpg",
+      "inStock": true,
+      "stockQuantity": 125,
+      "minimumOrder": 1,
+      "features": [
+        "ANSI Z89.1 Type I certified",
+        "4-point suspension system",
+        "Ratchet adjustment for secure fit",
+        "Accessory slots for attachments",
+        "Durable HDPE shell construction"
+      ],
+      "specifications": {
+        "Material": "High-density polyethylene (HDPE)",
+        "Type": "Type I (top impact protection)",
+        "Class": "Class E (electrical protection up to 20,000V)",
+        "Weight": "0.9 lbs",
+        "Adjustment": "6.5\" - 8\"",
+        "Certification": "ANSI Z89.1, CSA Z94.1"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 9, "price": 18.99, "savings": 0 },
+        { "minQty": 10, "maxQty": 24, "price": 16.99, "savings": 2.00 },
+        { "minQty": 25, "maxQty": 49, "price": 14.99, "savings": 4.00 },
+        { "minQty": 50, "maxQty": null, "price": 12.99, "savings": 6.00 }
+      ],
+      "reviews": {
+        "average": 4.5,
+        "count": 156,
+        "breakdown": {
+          "5": 98,
+          "4": 42,
+          "3": 12,
+          "2": 3,
+          "1": 1
+        }
+      }
+    },
+    {
+      "id": "carhartt-work-shirt",
+      "name": "Carhartt Force Cotton Delmont Short Sleeve Work Shirt",
+      "categoryId": "work-apparel",
+      "sku": "102537",
+      "brand": "Carhartt",
+      "price": 44.99,
+      "description": "Rugged work shirt built with Carhartt Force technology to wick sweat and dry fast. Reinforced construction for long-lasting durability.",
+      "icon": "👔",
+      "image": "/images/carhartt-work-shirt.jpg",
+      "inStock": true,
+      "stockQuantity": 78,
+      "minimumOrder": 1,
+      "features": [
+        "Carhartt Force technology fights odors",
+        "FastDry technology wicks away sweat",
+        "Relaxed fit for ease of movement",
+        "Left chest pocket with button closure",
+        "Tagless neck label for comfort"
+      ],
+      "specifications": {
+        "Material": "6.75 oz, 65% cotton / 35% polyester",
+        "Fit": "Relaxed",
+        "Colors": "Navy, Black, Dark Brown, Moss",
+        "Sizes": "S, M, L, XL, XXL, XXXL",
+        "Care": "Machine wash cold, tumble dry low"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 9, "price": 44.99, "savings": 0 },
+        { "minQty": 10, "maxQty": 24, "price": 40.49, "savings": 4.50 },
+        { "minQty": 25, "maxQty": 49, "price": 36.99, "savings": 8.00 },
+        { "minQty": 50, "maxQty": null, "price": 33.74, "savings": 11.25 }
+      ],
+      "reviews": {
+        "average": 4.6,
+        "count": 203,
+        "breakdown": {
+          "5": 134,
+          "4": 52,
+          "3": 13,
+          "2": 3,
+          "1": 1
+        }
+      }
+    },
+    {
+      "id": "lumber-2x4x8",
+      "name": "Pressure Treated 2x4x8 Lumber",
+      "categoryId": "lumber-materials",
+      "sku": "PT-2X4X8",
+      "brand": "ProBuild",
+      "price": 7.49,
+      "description": "Premium pressure-treated lumber suitable for ground contact. Ideal for framing, decking, and outdoor construction projects.",
+      "icon": "🪵",
+      "image": "/images/pressure-treated-lumber.jpg",
+      "inStock": true,
+      "stockQuantity": 450,
+      "minimumOrder": 10,
+      "features": [
+        "Pressure treated for ground contact",
+        "Kiln dried after treatment (KDAT)",
+        "Straight, stable construction grade",
+        "Suitable for outdoor applications",
+        "Environmentally safe treatment"
+      ],
+      "specifications": {
+        "Dimensions": "1.5\" x 3.5\" x 8'",
+        "Grade": "Construction grade",
+        "Treatment": "ACQ (Alkaline Copper Quaternary)",
+        "Moisture Content": "19% or less",
+        "Use": "Above ground and ground contact",
+        "Species": "Southern Yellow Pine"
+      },
+      "volumePricing": [
+        { "minQty": 10, "maxQty": 49, "price": 7.49, "savings": 0 },
+        { "minQty": 50, "maxQty": 99, "price": 6.99, "savings": 0.50 },
+        { "minQty": 100, "maxQty": 249, "price": 6.49, "savings": 1.00 },
+        { "minQty": 250, "maxQty": null, "price": 5.99, "savings": 1.50 }
+      ],
+      "reviews": {
+        "average": 4.2,
+        "count": 67,
+        "breakdown": {
+          "5": 32,
+          "4": 25,
+          "3": 8,
+          "2": 2,
+          "1": 0
+        }
+      }
+    }
+  ]
+}
