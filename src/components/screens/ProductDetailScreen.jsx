@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Page,
   Layout,
@@ -25,6 +25,7 @@ const ProductDetailScreen = ({
 }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [addToCartState, setAddToCartState] = useState('default'); // 'default', 'adding', 'added'
   
   // Find product across all data sources
   const findProduct = (id) => {
@@ -91,6 +92,32 @@ const ProductDetailScreen = ({
            'Contact for pricing';
   };
 
+  const handleAddToCart = async () => {
+    setAddToCartState('adding');
+    
+    // Add to cart
+    addToCart(displayProduct, quantity);
+    
+    // Show "Added!" state
+    setAddToCartState('added');
+    
+    // Reset to default after 2 seconds
+    setTimeout(() => {
+      setAddToCartState('default');
+    }, 2000);
+  };
+
+  const getButtonText = () => {
+    if (addToCartState === 'adding') return 'Adding...';
+    if (addToCartState === 'added') return 'Added!';
+    return currentPersona === 'shopper' ? 'Add to Cart' : 'Add to Quote';
+  };
+
+  const getButtonVariant = () => {
+    if (addToCartState === 'added') return 'success';
+    return 'primary';
+  };
+
   return (
     <Page 
       title={displayProduct.title || displayProduct.name}
@@ -100,8 +127,9 @@ const ProductDetailScreen = ({
         onAction: handleBackNavigation
       }}
       primaryAction={{
-        content: currentPersona === 'shopper' ? 'Add to Cart' : 'Add to Quote', 
-        onAction: () => addToCart(displayProduct, quantity)
+        content: getButtonText(), 
+        onAction: handleAddToCart,
+        loading: addToCartState === 'adding'
       }}
       secondaryActions={[
         {content: 'View Cart', onAction: () => onNavigate('quotes')},
@@ -301,12 +329,32 @@ const ProductDetailScreen = ({
                           min={displayProduct.minimumOrder || 1}
                         />
                         <Button 
-                          variant="primary" 
+                          variant={getButtonVariant()} 
                           size="large"
-                          onClick={() => addToCart(displayProduct, quantity)}
+                          onClick={handleAddToCart}
+                          loading={addToCartState === 'adding'}
+                          disabled={addToCartState === 'adding'}
                         >
-                          {currentPersona === 'shopper' ? 'Add to Cart' : 'Add to Quote'}
+                          {getButtonText()}
                         </Button>
+
+                        {/* Quick Actions after adding to cart */}
+                        {addToCartState === 'added' && (
+                          <InlineStack gap="200" align="center">
+                            <Button 
+                              variant="secondary" 
+                              onClick={() => onNavigate('quotes')}
+                            >
+                              View Cart
+                            </Button>
+                            <Button 
+                              variant="secondary" 
+                              onClick={() => onNavigate('home')}
+                            >
+                              Continue Shopping
+                            </Button>
+                          </InlineStack>
+                        )}
                       </BlockStack>
                     </BlockStack>
                   </Box>
