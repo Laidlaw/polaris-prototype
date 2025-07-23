@@ -41,6 +41,14 @@
       "productCount": 78
     },
     {
+      "id": "construction-safety-shirts",
+      "name": "Construction Safety Shirts",
+      "description": "High-visibility safety shirts for construction workers",
+      "icon": "🦺",
+      "color": "#FF6B35",
+      "productCount": 5
+    },
+    {
       "id": "electrical",
       "name": "Electrical",
       "description": "Electrical supplies and components",

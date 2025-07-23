@@ -1,0 +1,230 @@
+{
+  "category": {
+    "id": "construction-safety-shirts",
+    "name": "Construction Safety Shirts",
+    "description": "High-visibility safety shirts for construction workers"
+  },
+  "products": [
+    {
+      "id": 1796993895,
+      "handle": "portwest-high-visibility-lightweight-cotton-t-shirt-ansi-class-2-short-sleeve-s170",
+      "title": "PORTWEST® High Visibility Lightweight Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170",
+      "description": "High visibility lightweight cotton t-shirt with reflective tape for construction workers. ANSI Class 2 compliant for enhanced safety on construction sites.",
+      "price_numeric": 15.99,
+      "currency": "USD",
+      "vendor": "PORTWEST®",
+      "product_type": "Hi-Vis Safety Shirt",
+      "tags": ["t-shirt", "portwest", "hi-vis", "ansi-class-2", "construction", "safety"],
+      "available": true,
+      "images": [
+        {
+          "id": 1,
+          "src": "product_images/product_1796993895_img_1.jpg",
+          "alt": "PORTWEST® Hi Vis Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170 - Front View",
+          "local_path": "product_images/product_1796993895_img_1.jpg"
+        },
+        {
+          "id": 2,
+          "src": "product_images/product_1796993895_img_2.jpg",
+          "alt": "PORTWEST® Hi Vis Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170 - Back View",
+          "local_path": "product_images/product_1796993895_img_2.jpg"
+        },
+        {
+          "id": 3,
+          "src": "product_images/product_1796993895_img_3.jpg",
+          "alt": "PORTWEST® Hi Vis Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170 - Side View",
+          "local_path": "product_images/product_1796993895_img_3.jpg"
+        },
+        {
+          "id": 4,
+          "src": "product_images/product_1796993895_img_4.png",
+          "alt": "PORTWEST® Hi Vis Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170 - Detail",
+          "local_path": "product_images/product_1796993895_img_4.png"
+        },
+        {
+          "id": 5,
+          "src": "product_images/product_1796993895_img_5.jpg",
+          "alt": "PORTWEST® Hi Vis Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170 - Reflective Tape Detail",
+          "local_path": "product_images/product_1796993895_img_5.jpg"
+        },
+        {
+          "id": 6,
+          "src": "product_images/product_1796993895_img_6.jpg",
+          "alt": "PORTWEST® Hi Vis Cotton T-Shirt - ANSI Class 2 - Short Sleeve - S170 - Worn",
+          "local_path": "product_images/product_1796993895_img_6.jpg"
+        }
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "title": "Small / Orange",
+          "option1": "Small",
+          "option2": "Orange",
+          "price": 15.99,
+          "available": true,
+          "inventory_quantity": 25
+        },
+        {
+          "id": 2,
+          "title": "Medium / Orange",
+          "option1": "Medium",
+          "option2": "Orange",
+          "price": 15.99,
+          "available": true,
+          "inventory_quantity": 30
+        },
+        {
+          "id": 3,
+          "title": "Large / Orange",
+          "option1": "Large",
+          "option2": "Orange",
+          "price": 15.99,
+          "available": true,
+          "inventory_quantity": 18
+        },
+        {
+          "id": 4,
+          "title": "Small / Yellow",
+          "option1": "Small",
+          "option2": "Yellow",
+          "price": 15.99,
+          "available": true,
+          "inventory_quantity": 22
+        }
+      ],
+      "features": [
+        "ANSI Class 2 compliant",
+        "100% lightweight cotton construction",
+        "2-inch reflective tape for enhanced visibility",
+        "Comfortable crew neck design",
+        "Machine washable",
+        "Available in hi-vis orange and yellow"
+      ],
+      "specifications": {
+        "Material": "100% Cotton",
+        "Safety Class": "ANSI/ISEA 107-2015 Class 2",
+        "Reflective Tape": "2-inch silver reflective tape",
+        "Care Instructions": "Machine wash cold, tumble dry low",
+        "Sizes Available": "S, M, L, XL, XXL, XXXL",
+        "Colors": "Hi-Vis Orange, Hi-Vis Yellow"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 9, "price": 15.99, "savings": 0 },
+        { "minQty": 10, "maxQty": 24, "price": 14.39, "savings": 1.60 },
+        { "minQty": 25, "maxQty": 49, "price": 13.59, "savings": 2.40 },
+        { "minQty": 50, "maxQty": null, "price": 12.79, "savings": 3.20 }
+      ]
+    },
+    {
+      "id": 1090870960,
+      "handle": "portwest-high-visibility-slim-fit-t-shirt-ansi-class-2-s478",
+      "title": "PORTWEST® High Visibility Slim Fit T-Shirt - ANSI Class 2 - S478",
+      "description": "Slim fit high visibility t-shirt with enhanced comfort and mobility. ANSI Class 2 rated for construction site safety requirements.",
+      "price_numeric": 11.99,
+      "currency": "USD",
+      "vendor": "PORTWEST®",
+      "product_type": "Hi-Vis Safety Shirt",
+      "tags": ["t-shirt", "portwest", "slim-fit", "hi-vis", "ansi-class-2", "construction"],
+      "available": true,
+      "images": [
+        {
+          "id": 1,
+          "src": "product_images/product_1090870960_img_1.jpg",
+          "alt": "PORTWEST® Hi Vis Slim Fit T-Shirt - Class 2 - S478 - Front View",
+          "local_path": "product_images/product_1090870960_img_1.jpg"
+        },
+        {
+          "id": 2,
+          "src": "product_images/product_1090870960_img_2.jpg",
+          "alt": "PORTWEST® Hi Vis Slim Fit T-Shirt - Class 2 - S478 - Back View",
+          "local_path": "product_images/product_1090870960_img_2.jpg"
+        },
+        {
+          "id": 3,
+          "src": "product_images/product_1090870960_img_3.jpg",
+          "alt": "PORTWEST® Hi Vis Slim Fit T-Shirt - Class 2 - S478 - Side View",
+          "local_path": "product_images/product_1090870960_img_3.jpg"
+        },
+        {
+          "id": 4,
+          "src": "product_images/product_1090870960_img_4.jpg",
+          "alt": "PORTWEST® Hi Vis Slim Fit T-Shirt - Class 2 - S478 - Detail View",
+          "local_path": "product_images/product_1090870960_img_4.jpg"
+        },
+        {
+          "id": 5,
+          "src": "product_images/product_1090870960_img_5.jpg",
+          "alt": "PORTWEST® Hi Vis Slim Fit T-Shirt - Class 2 - S478 - Reflective Detail",
+          "local_path": "product_images/product_1090870960_img_5.jpg"
+        },
+        {
+          "id": 6,
+          "src": "product_images/product_1090870960_img_6.jpg",
+          "alt": "PORTWEST® Hi Vis Slim Fit T-Shirt - Class 2 - S478 - Worn",
+          "local_path": "product_images/product_1090870960_img_6.jpg"
+        }
+      ],
+      "variants": [
+        {
+          "id": 1,
+          "title": "Small / Orange",
+          "option1": "Small",
+          "option2": "Orange",
+          "price": 11.99,
+          "available": true,
+          "inventory_quantity": 15
+        },
+        {
+          "id": 2,
+          "title": "Medium / Orange",
+          "option1": "Medium",
+          "option2": "Orange",
+          "price": 11.99,
+          "available": true,
+          "inventory_quantity": 28
+        },
+        {
+          "id": 3,
+          "title": "Large / Orange",
+          "option1": "Large",
+          "option2": "Orange",
+          "price": 11.99,
+          "available": true,
+          "inventory_quantity": 12
+        },
+        {
+          "id": 4,
+          "title": "Medium / Yellow",
+          "option1": "Medium",
+          "option2": "Yellow",
+          "price": 11.99,
+          "available": true,
+          "inventory_quantity": 20
+        }
+      ],
+      "features": [
+        "ANSI Class 2 compliant",
+        "Slim fit design for enhanced mobility",
+        "Moisture-wicking fabric blend",
+        "2-inch reflective tape",
+        "Tagless design for comfort",
+        "Fade-resistant colors"
+      ],
+      "specifications": {
+        "Material": "50% Cotton, 50% Polyester",
+        "Safety Class": "ANSI/ISEA 107-2015 Class 2",
+        "Fit": "Slim Fit",
+        "Reflective Tape": "2-inch silver reflective tape",
+        "Care Instructions": "Machine wash warm, tumble dry medium",
+        "Sizes Available": "S, M, L, XL, XXL",
+        "Colors": "Hi-Vis Orange, Hi-Vis Yellow"
+      },
+      "volumePricing": [
+        { "minQty": 1, "maxQty": 9, "price": 11.99, "savings": 0 },
+        { "minQty": 10, "maxQty": 24, "price": 10.79, "savings": 1.20 },
+        { "minQty": 25, "maxQty": 49, "price": 10.19, "savings": 1.80 },
+        { "minQty": 50, "maxQty": null, "price": 9.59, "savings": 2.40 }
+      ]
+    }
+  ]
+}

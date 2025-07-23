@@ -25,3 +25,4 @@ dist-ssr
 
 # Product images
 /src/assets/product_images/*
+/src/assets/design_docs/*

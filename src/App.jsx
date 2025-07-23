@@ -41,10 +41,13 @@ import {
 import categoriesData from './data/categories_data.json';
 import productsData from './data/products_data.json';
 import siteContent from './data/site_content.json';
+import constructionData from './data/construction_products.json';
+import constructionSafetyShirts from './data/construction_safety_shirts.json';
 
 const VellumApp = () => {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -206,7 +209,14 @@ const VellumApp = () => {
                             <div style={{fontSize: '48px'}}>{category.icon}</div>
                           <Text variant="headingMd" as="h3">{category.name}</Text>
                           <Text>{category.description}</Text>
-                          <Button onClick={() => setCurrentScreen('products')}>Browse</Button>
+                          <Button onClick={() => {
+                            if (category.id === 'construction-safety-shirts') {
+                              setSelectedCategoryId(category.id);
+                              setCurrentScreen('category-products');
+                            } else {
+                              setCurrentScreen('products');
+                            }
+                          }}>Browse</Button>
                         </BlockStack>
                       </Box>
                     </Card>
@@ -307,130 +317,280 @@ const VellumApp = () => {
     </Page>
   );
 
-  // Product Detail Screen Component
+  // Product Detail Screen Component  
   const ProductDetailScreen = () => {
-    if (!selectedProduct) return <div>Product not found</div>;
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [quantity, setQuantity] = useState(1);
+    
+    // Get the construction product data if selectedProductId matches
+    const constructionProduct = constructionData.products.find(p => p.id.toString() === selectedProductId?.toString());
+    const safetyShirtProduct = constructionSafetyShirts.products.find(p => p.id.toString() === selectedProductId?.toString());
+    const displayProduct = safetyShirtProduct || constructionProduct || selectedProduct;
+    
+    if (!displayProduct) return <div>Product not found</div>;
 
-  // Build volume pricing table from JSON data
-    const volumePricingData = [
+    // Build volume pricing table from JSON data (if available)
+    const volumePricingData = displayProduct.volumePricing ? [
       ['Quantity', 'Unit Price', 'Savings'],
-      ...selectedProduct.volumePricing.map(tier => [
+      ...displayProduct.volumePricing.map(tier => [
         tier.maxQty ? `${tier.minQty}-${tier.maxQty}` : `${tier.minQty}+`,
         `$${tier.price.toFixed(2)}`,
         tier.savings > 0 ? `$${tier.savings.toFixed(2)}` : '-'
       ])
-    ];
+    ] : null;
+
+    // Use construction product images if available, otherwise fallback
+    const productImages = safetyShirtProduct?.images || constructionProduct?.images || [{
+      id: 1,
+      src: displayProduct.image,
+      alt: displayProduct.name,
+      local_path: displayProduct.image
+    }];
 
     return (
       <Page 
-      title={selectedProduct.name}
-      subtitle={`SKU: ${selectedProduct.sku} | Brand: ${selectedProduct.brand}`}
-      backAction={{content: 'Products', onAction: () => setCurrentScreen('products')}}
-      primaryAction={{content: 'Add to Quote', onAction: () => setCurrentScreen('quote-builder')}}
-      secondaryActions={[
-        {content: 'Add to Cart'},
-        {content: `Buy with ShopPay - $${selectedProduct.price}`}
-      ]}
-    >
+        title={displayProduct.title || displayProduct.name}
+        subtitle={`${displayProduct.vendor ? `${displayProduct.vendor} | ` : ''}${displayProduct.sku ? `SKU: ${displayProduct.sku}` : ''} ${displayProduct.brand ? `| Brand: ${displayProduct.brand}` : ''}`}
+        backAction={{
+          content: safetyShirtProduct ? 'Construction Safety Shirts' : 'Products', 
+          onAction: () => {
+            if (safetyShirtProduct) {
+              setSelectedCategoryId('construction-safety-shirts');
+              setCurrentScreen('category-products');
+            } else {
+              setCurrentScreen('products');
+            }
+          }
+        }}
+        primaryAction={{content: 'Add to Quote', onAction: () => setCurrentScreen('quote-builder')}}
+        secondaryActions={[
+          {content: 'Add to Cart'},
+          {content: `Buy Now - $${safetyShirtProduct?.price_numeric || constructionProduct?.price_numeric || displayProduct.price}`}
+        ]}
+      >
         <Layout>
-          <Layout.Section oneHalf>
-            <Card>
-              <Box padding="400">
-                <BlockStack gap="400">
-                  {/* Product image placeholder */}
-                  <div style={{
-                    textAlign: 'center', 
-                    fontSize: '96px', 
-                    background: `linear-gradient(135deg, ${categories.find(c => c.id === selectedProduct.categoryId)?.color || '#667eea'} 0%, #764ba2 100%)`,
-                    color: 'white', 
-                    borderRadius: '8px', 
-                    padding: '80px'
-                  }}>
-                    {selectedProduct.icon}
-                  </div>
-
-                  {/* Stock status */}
-                <InlineStack gap="200" align="center">
-                  <Badge tone={selectedProduct.inStock ? 'success' : 'critical'}>
-                    {selectedProduct.inStock ? `${selectedProduct.stockQuantity} in stock` : 'Out of stock'}
-                  </Badge>
-                  {selectedProduct.reviews && (
-                    <InlineStack gap="100">
-                      <Text>★★★★★</Text>
-                      <Text>({selectedProduct.reviews.count} reviews)</Text>
-                    </InlineStack>
-                  )}
-                  {/* <InlineStack gap="200" align="center">
-                    {['📷', '🔍', '📊', '⚙️'].map((icon, index) => (
-                      <div key={index} style={{
-                        width: '60px', 
-                        height: '60px', 
-                        background: '#f6f6f7', 
-                        borderRadius: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        border: index === 0 ? '2px solid #00a047' : '2px solid transparent'
-                      }}>
-                        {icon}
+          <Layout.Section>
+            <Grid>
+              <Grid.Cell columnSpan={{xs: 12, sm: 12, md: 6, lg: 6, xl: 6}}>
+                <Card>
+                  <Box padding="400">
+                    <BlockStack gap="400">
+                      {/* Main Product Image */}
+                      <div style={{ textAlign: 'center' }}>
+                        {productImages[selectedImageIndex] ? (
+                          <img 
+                            src={`/src/assets/${productImages[selectedImageIndex].local_path || productImages[selectedImageIndex].src}`}
+                            alt={productImages[selectedImageIndex].alt || displayProduct.title || displayProduct.name}
+                            style={{
+                              width: '100%',
+                              maxWidth: '500px',
+                              height: 'auto',
+                              borderRadius: '8px',
+                              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                            }}
+                            onError={(e) => {
+                              // Fallback to icon display if image fails to load
+                              e.target.style.display = 'none';
+                              e.target.parentNode.innerHTML = `
+                                <div style="
+                                  width: 100%; 
+                                  height: 300px; 
+                                  background: linear-gradient(135deg, ${categories.find(c => c.id === displayProduct.categoryId)?.color || '#667eea'} 0%, #764ba2 100%);
+                                  color: white;
+                                  display: flex;
+                                  align-items: center;
+                                  justify-content: center;
+                                  font-size: 96px;
+                                  border-radius: 8px;
+                                ">
+                                  ${displayProduct.icon || '📦'}
+                                </div>
+                              `;
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: '100%',
+                            height: '300px',
+                            background: `linear-gradient(135deg, ${categories.find(c => c.id === displayProduct.categoryId)?.color || '#667eea'} 0%, #764ba2 100%)`,
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '96px',
+                            borderRadius: '8px'
+                          }}>
+                            {displayProduct.icon || '📦'}
+                          </div>
+                        )}
                       </div>
-                    ))}*/}
-                  </InlineStack> 
+
+                      {/* Image Thumbnails Gallery */}
+                      {productImages.length > 1 && (
+                        <div>
+                          <Text variant="headingSm" as="h4" tone="subdued">Product Images</Text>
+                          <Box paddingBlockStart="200">
+                            <InlineStack gap="200" wrap={false}>
+                              {productImages.slice(0, 6).map((image, index) => (
+                                <div 
+                                  key={image.id || index}
+                                  onClick={() => setSelectedImageIndex(index)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    padding: '4px',
+                                    border: index === selectedImageIndex ? '2px solid #00a047' : '2px solid transparent',
+                                    borderRadius: '8px',
+                                    minWidth: '80px'
+                                  }}
+                                >
+                                  <img 
+                                    src={`/src/assets/${image.local_path || image.src}`}
+                                    alt={image.alt || `${displayProduct.title || displayProduct.name} - Image ${index + 1}`}
+                                    style={{
+                                      width: '80px',
+                                      height: '80px',
+                                      objectFit: 'cover',
+                                      borderRadius: '4px'
+                                    }}
+                                    onError={(e) => {
+                                      e.target.style.display = 'none';
+                                      e.target.parentNode.innerHTML = `
+                                        <div style="
+                                          width: 80px; 
+                                          height: 80px; 
+                                          background: #f0f0f0;
+                                          display: flex;
+                                          align-items: center;
+                                          justify-content: center;
+                                          font-size: 24px;
+                                          border-radius: 4px;
+                                        ">📷</div>
+                                      `;
+                                    }}
+                                  />
+                                </div>
+                              ))}
+                              {productImages.length > 6 && (
+                                <div style={{
+                                  width: '80px',
+                                  height: '80px',
+                                  background: '#f0f0f0',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  borderRadius: '4px',
+                                  fontSize: '12px',
+                                  color: '#666'
+                                }}>
+                                  +{productImages.length - 6}
+                                </div>
+                              )}
+                            </InlineStack>
+                          </Box>
+                        </div>
+                      )}
+
+                      {/* Product Tags */}
+                      {(safetyShirtProduct?.tags || constructionProduct?.tags) && (safetyShirtProduct?.tags || constructionProduct?.tags).length > 0 && (
+                        <div>
+                          <Text variant="headingSm" as="h4" tone="subdued">Tags</Text>
+                          <Box paddingBlockStart="200">
+                            <InlineStack gap="100" wrap>
+                              {(safetyShirtProduct?.tags || constructionProduct?.tags || []).map((tag, index) => (
+                                <Badge key={index} tone="info" size="medium">
+                                  {tag}
+                                </Badge>
+                              ))}
+                            </InlineStack>
+                          </Box>
+                        </div>
+                      )}
+                    </BlockStack>
+                  </Box>
+                </Card>
+              </Grid.Cell>
+
+              <Grid.Cell columnSpan={{xs: 12, sm: 12, md: 6, lg: 6, xl: 6}}>
+                <BlockStack gap="400">
+                  {/* Product Info Card */}
+                  <Card>
+                    <Box padding="400">
+                      <BlockStack gap="400">
+                        <Text variant="headingLg" as="h1">{displayProduct.title || displayProduct.name}</Text>
+                        
+                        {displayProduct.vendor && (
+                          <Text variant="bodyMd" tone="subdued">by {displayProduct.vendor}</Text>
+                        )}
+                        
+                        <Text variant="headingMd" tone="success">
+                          ${safetyShirtProduct?.price_numeric?.toFixed(2) || constructionProduct?.price_numeric?.toFixed(2) || displayProduct.price?.toFixed?.(2) || displayProduct.price}
+                        </Text>
+
+                        {displayProduct.description && (
+                          <Text variant="bodyMd">{displayProduct.description}</Text>
+                        )}
+
+                        {/* Stock Status */}
+                        <InlineStack gap="200" align="center">
+                          <Badge tone={displayProduct.available !== false && displayProduct.inStock !== false ? 'success' : 'critical'}>
+                            {displayProduct.available !== false && displayProduct.inStock !== false 
+                              ? (displayProduct.stockQuantity ? `${displayProduct.stockQuantity} in stock` : 'In stock')
+                              : 'Out of stock'
+                            }
+                          </Badge>
+                          {displayProduct.reviews && (
+                            <InlineStack gap="100">
+                              <Text>{'★'.repeat(Math.floor(displayProduct.reviews.average || 0))}{'☆'.repeat(5 - Math.floor(displayProduct.reviews.average || 0))}</Text>
+                              <Text>({displayProduct.reviews.count} reviews)</Text>
+                            </InlineStack>
+                          )}
+                        </InlineStack>
+
+                        {/* Quantity and Add to Cart */}
+                        <BlockStack gap="300">
+                          {displayProduct.minimumOrder > 1 && (
+                            <Banner tone="info">
+                              Minimum order quantity: {displayProduct.minimumOrder} units
+                            </Banner>
+                          )}
+                          
+                          <TextField
+                            label="Quantity"
+                            type="number"
+                            value={quantity.toString()}
+                            onChange={(value) => setQuantity(Math.max(1, parseInt(value) || 1))}
+                            min={displayProduct.minimumOrder || 1}
+                          />
+                          <Button variant="primary" size="large">
+                            Add to Quote
+                          </Button>
+                        </BlockStack>
+                      </BlockStack>
+                    </Box>
+                  </Card>
+
+                  {/* Volume Pricing */}
+                  {volumePricingData && (
+                    <Card>
+                      <Box padding="400">
+                        <BlockStack gap="400">
+                          <Text variant="headingMd" as="h3">Volume Pricing</Text>
+                          <DataTable
+                            columnContentTypes={['text', 'text', 'text']}
+                            headings={volumePricingData[0]}
+                            rows={volumePricingData.slice(1)}
+                          />
+                        </BlockStack>
+                      </Box>
+                    </Card>
+                  )}
                 </BlockStack>
-              </Box>
-            </Card>
-          </Layout.Section>
-
-          <Layout.Section oneHalf>
-            <BlockStack gap="400">
-              {/* Pricing Card */}
-              <Card>
-                <Box padding="400">
-                  <BlockStack gap="400">
-                    <Text variant="headingLg" as="h2">${selectedProduct.price.toFixed(2)}</Text>
-                    <Text>{selectedProduct.description}</Text>
-                    
-                    {/* Minimum order notice */}
-                    {selectedProduct.minimumOrder > 1 && (
-                      <Banner tone="info">
-                        Minimum order quantity: {selectedProduct.minimumOrder} units
-                      </Banner>
-                    )}
-                    
-                    <FormLayout>
-                      <TextField
-                        label="Quantity"
-                        type="number"
-                        value="1"
-                        min={selectedProduct.minimumOrder}
-                      />
-                      <Button variant="primary" size="large">
-                        Add to Quote
-                      </Button>
-                    </FormLayout>
-                  </BlockStack>
-                </Box>
-              </Card>
-
-              {/* Volume Pricing */}
-              <Card>
-                <Box padding="400">
-                  <BlockStack gap="400">
-                    <Text variant="headingMd" as="h3">Volume Pricing</Text>
-                    <DataTable
-                      columnContentTypes={['text', 'text', 'text']}
-                      headings={volumePricingData[0]}
-                      rows={volumePricingData.slice(1)}
-                    />
-                  </BlockStack>
-                </Box>
-              </Card>
-            </BlockStack>
+              </Grid.Cell>
+            </Grid>
           </Layout.Section>
 
           {/* Product Features */}
-          {selectedProduct.features && (
+          {displayProduct.features && (
             <Layout.Section>
               <Card>
                 <Box padding="400">
@@ -438,7 +598,7 @@ const VellumApp = () => {
                     <Text variant="headingMd" as="h3">Key Features</Text>
                     <Box paddingInlineStart="400">
                       <BlockStack gap="100">
-                        {selectedProduct.features.map((feature, index) => (
+                        {displayProduct.features.map((feature, index) => (
                           <Text key={index}>• {feature}</Text>
                         ))}
                       </BlockStack>
@@ -448,8 +608,9 @@ const VellumApp = () => {
               </Card>
             </Layout.Section>
           )}
+
           {/* Specifications */}
-          {selectedProduct.specifications && (
+          {displayProduct.specifications && (
             <Layout.Section>
               <Card>
                 <Box padding="400">
@@ -458,13 +619,173 @@ const VellumApp = () => {
                     <DataTable
                       columnContentTypes={['text', 'text']}
                       headings={['Specification', 'Value']}
-                      rows={Object.entries(selectedProduct.specifications).map(([key, value]) => [key, value])}
+                      rows={Object.entries(displayProduct.specifications).map(([key, value]) => [key, value])}
                     />
                   </BlockStack>
                 </Box>
               </Card>
             </Layout.Section>
           )}
+        </Layout>
+      </Page>
+    );
+  };
+
+  // Category Products Screen Component
+  const CategoryProductsScreen = () => {
+    const category = categoriesData.categories.find(cat => cat.id === selectedCategoryId);
+    
+    if (!category) {
+      return <div>Category not found</div>;
+    }
+
+    // Get products for the selected category
+    let categoryProducts = [];
+    if (selectedCategoryId === 'construction-safety-shirts') {
+      categoryProducts = constructionSafetyShirts.products;
+    }
+
+    const handleProductClick = (productId) => {
+      setSelectedProductId(productId);
+      setCurrentScreen('product-detail');
+    };
+
+    return (
+      <Page 
+        title={category.name}
+        subtitle={`${category.description} • ${categoryProducts.length} products`}
+        backAction={{content: 'Home', onAction: () => setCurrentScreen('home')}}
+      >
+        <Layout>
+          <Layout.Section>
+            <Grid>
+              {categoryProducts.map((product) => (
+                <Grid.Cell key={product.id} columnSpan={{xs: 6, sm: 4, md: 4, lg: 3, xl: 3}}>
+                  <Card>
+                    <Box padding="0">
+                      {/* Product Image */}
+                      <div 
+                        style={{ 
+                          position: 'relative', 
+                          cursor: 'pointer',
+                          overflow: 'hidden',
+                          borderRadius: '12px 12px 0 0'
+                        }}
+                        onClick={() => handleProductClick(product.id)}
+                      >
+                        <img 
+                          src={`/src/assets/${product.images[0].local_path}`}
+                          alt={product.images[0].alt}
+                          style={{
+                            width: '100%',
+                            height: '200px',
+                            objectFit: 'cover',
+                            transition: 'transform 0.2s ease'
+                          }}
+                          onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                          onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentNode.innerHTML = `
+                              <div style="
+                                width: 100%; 
+                                height: 200px; 
+                                background: ${category.color || '#667eea'};
+                                color: white;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 48px;
+                              ">
+                                ${category.icon || '📦'}
+                              </div>
+                            `;
+                          }}
+                        />
+                        
+                        {/* Vendor Badge */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          left: '8px',
+                          background: 'rgba(0,0,0,0.7)',
+                          color: 'white',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '500'
+                        }}>
+                          {product.vendor}
+                        </div>
+
+                        {/* Stock Badge */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          background: product.available ? '#00a047' : '#d72c0d',
+                          color: 'white',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '500'
+                        }}>
+                          {product.available ? 'In Stock' : 'Out of Stock'}
+                        </div>
+                      </div>
+
+                      {/* Product Info */}
+                      <Box padding="400">
+                        <BlockStack gap="200">
+                          <Text 
+                            variant="headingSm" 
+                            as="h3"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleProductClick(product.id)}
+                          >
+                            {product.title}
+                          </Text>
+                          
+                          <Text variant="bodyMd" tone="subdued">
+                            {product.product_type}
+                          </Text>
+
+                          <InlineStack gap="200" blockAlign="center" align="space-between">
+                            <Text variant="headingMd" tone="success">
+                              ${product.price_numeric.toFixed(2)}
+                            </Text>
+                            <Button 
+                              variant="primary" 
+                              size="slim"
+                              onClick={() => handleProductClick(product.id)}
+                            >
+                              View Details
+                            </Button>
+                          </InlineStack>
+
+                          {/* Product Tags */}
+                          <div style={{ marginTop: '8px' }}>
+                            <InlineStack gap="100" wrap>
+                              {product.tags.slice(0, 3).map((tag, index) => (
+                                <Badge key={index} tone="info" size="small">
+                                  {tag}
+                                </Badge>
+                              ))}
+                              {product.tags.length > 3 && (
+                                <Badge tone="info" size="small">
+                                  +{product.tags.length - 3}
+                                </Badge>
+                              )}
+                            </InlineStack>
+                          </div>
+                        </BlockStack>
+                      </Box>
+                    </Box>
+                  </Card>
+                </Grid.Cell>
+              ))}
+            </Grid>
+          </Layout.Section>
         </Layout>
       </Page>
     );
@@ -1021,6 +1342,8 @@ const VellumApp = () => {
         return <HomeScreen />;
       case 'products':
         return <ProductsScreen />;
+      case 'category-products':
+        return <CategoryProductsScreen />;
       case 'product-detail':
         return <ProductDetailScreen />;
       case 'quote-builder':
