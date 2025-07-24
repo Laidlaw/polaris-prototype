@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { AppProvider } from '@shopify/polaris';
 import '@shopify/polaris/build/esm/styles.css';
 
@@ -57,11 +58,29 @@ import {
   ChevronDownIcon
 } from '@shopify/polaris-icons';
 
-const VellumApp = () => {
-  // Core state
-  const [currentScreen, setCurrentScreen] = useState('home');
-  const [selectedProductId, setSelectedProductId] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+const AppContent = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+  // Get URL parameters
+  const productId = params.productId;
+  const categoryId = params.categoryId;
+  
+  // Determine current screen from URL
+  const getCurrentScreen = () => {
+    const path = location.pathname;
+    if (path === '/') return 'home';
+    if (path === '/products') return 'products';
+    if (path.startsWith('/category/')) return 'category-products';
+    if (path.startsWith('/product/')) return 'product-detail';
+    if (path === '/cart') return 'quotes';
+    if (path === '/orders') return 'orders';
+    if (path === '/business-application') return 'business-app';
+    if (path === '/quote-builder') return 'quote-builder';
+    return 'home';
+  };
+  
+  const currentScreen = getCurrentScreen();
 
   // Persona state
   const [currentPersona, setCurrentPersona] = useState('shopper'); // 'shopper' or 'manager'
@@ -137,7 +156,7 @@ const VellumApp = () => {
     showToast(message, {
       content: 'View Cart',
       onAction: () => {
-        setCurrentScreen('quotes');
+        navigate('/cart');
         dismissToast();
       }
     });
@@ -165,18 +184,45 @@ const VellumApp = () => {
     }
   }, [cartItems, showToast]);
 
-  // Navigation helpers
+  // Navigation helpers using React Router
   const handleNavigate = useCallback((screen, options = {}) => {
-    setCurrentScreen(screen);
-    if (options.categoryId) {
-      setSelectedCategoryId(options.categoryId);
+    switch (screen) {
+      case 'home':
+        navigate('/');
+        break;
+      case 'products':
+        navigate('/products');
+        break;
+      case 'category-products':
+        if (options.categoryId) {
+          navigate(`/category/${options.categoryId}`);
+        }
+        break;
+      case 'product-detail':
+        if (options.productId) {
+          navigate(`/product/${options.productId}`);
+        }
+        break;
+      case 'quotes':
+        navigate('/cart');
+        break;
+      case 'orders':
+        navigate('/orders');
+        break;
+      case 'business-app':
+        navigate('/business-application');
+        break;
+      case 'quote-builder':
+        navigate('/quote-builder');
+        break;
+      default:
+        navigate('/');
     }
-  }, []);
+  }, [navigate]);
 
   const handleProductClick = useCallback((productId) => {
-    setSelectedProductId(productId);
-    setCurrentScreen('product-detail');
-  }, []);
+    navigate(`/product/${productId}`);
+  }, [navigate]);
 
   // Keyboard shortcut for persona switching
   useEffect(() => {
@@ -194,7 +240,6 @@ const VellumApp = () => {
   // Legacy data setup
   const { categories } = categoriesData;
   const { products } = productsData;
-  const selectedProduct = products.find(p => p.id === selectedProductId);
 
   // Header navigation component with persona awareness
   const HeaderComponent = () => (
@@ -216,23 +261,23 @@ const VellumApp = () => {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <div 
-            onClick={() => setCurrentScreen('home')} 
+            onClick={() => navigate('/')} 
             style={{ cursor: 'pointer' }}
           >
             <Text variant="headingLg" as="h1">{siteContent.brandName}</Text>
           </div>
           
           <div style={{ display: 'flex', gap: '16px' }}>
-            <Button variant="tertiary" onClick={() => setCurrentScreen('home')} icon={HomeIcon}>
+            <Button variant="tertiary" onClick={() => navigate('/')} icon={HomeIcon}>
               Home
             </Button>
-            <Button variant="tertiary" onClick={() => setCurrentScreen('products')} icon={ProductIcon}>
+            <Button variant="tertiary" onClick={() => navigate('/products')} icon={ProductIcon}>
               Products  
             </Button>
-            <Button variant="tertiary" onClick={() => setCurrentScreen('quotes')} icon={NoteIcon}>
+            <Button variant="tertiary" onClick={() => navigate('/cart')} icon={NoteIcon}>
               Quotes
             </Button>
-            <Button variant="tertiary" onClick={() => setCurrentScreen('orders')} icon={OrderIcon}>
+            <Button variant="tertiary" onClick={() => navigate('/orders')} icon={OrderIcon}>
               Orders
             </Button>
           </div>
@@ -251,7 +296,7 @@ const VellumApp = () => {
           {cartItems.length > 0 && (
             <Button 
               variant="tertiary" 
-              onClick={() => setCurrentScreen('quotes')}
+              onClick={() => navigate('/cart')}
               style={{
                 animation: cartItems.length > 0 ? 'cartPulse 0.3s ease-in-out' : 'none'
               }}
@@ -277,7 +322,7 @@ const VellumApp = () => {
               <ActionList
                 items={[
                   {content: `Switch to ${currentPersona === 'shopper' ? 'Manager' : 'Shopper'} (Ctrl+P)`, onAction: () => {togglePersona(); setUserMenuOpen(false);}},
-                  {content: 'Business Application', onAction: () => {setCurrentScreen('business-app'); setUserMenuOpen(false);}},
+                  {content: 'Business Application', onAction: () => {navigate('/business-application'); setUserMenuOpen(false);}},
                   {content: 'Account Settings', onAction: () => console.log('Account settings')},
                   {content: 'Support', onAction: () => console.log('Support')},
                 ]}
@@ -309,10 +354,9 @@ const VellumApp = () => {
                             <Text>{category.description}</Text>
                             <Button onClick={() => {
                               if (category.id === 'construction-safety-shirts' || category.id === 'safety-footwear' || category.id === 'safety-equipment') {
-                                setSelectedCategoryId(category.id);
-                                setCurrentScreen('category-products');
+                                navigate(`/category/${category.id}`);
                               } else {
-                                setCurrentScreen('products');
+                                navigate('/products');
                               }
                             }}>Browse</Button>
                           </BlockStack>
@@ -331,13 +375,13 @@ const VellumApp = () => {
 
   // Simple placeholder screens
   const QuoteBuilderScreen = () => (
-    <Page title="Request Quote" backAction={{content: 'Products', onAction: () => setCurrentScreen('products')}}>
+    <Page title="Request Quote" backAction={{content: 'Products', onAction: () => navigate('/products')}}>
       <Card><Box padding="400"><Text>Quote Builder - Coming Soon</Text></Box></Card>
     </Page>
   );
 
   const BusinessApplicationScreen = () => (
-    <Page title="Business Application" backAction={{content: 'Home', onAction: () => setCurrentScreen('home')}}>
+    <Page title="Business Application" backAction={{content: 'Home', onAction: () => navigate('/')}}>
       <Card><Box padding="400"><Text>Business Application - Coming Soon</Text></Box></Card>
     </Page>
   );
@@ -392,7 +436,7 @@ const VellumApp = () => {
                   <BlockStack gap="400" inlineAlign="center">
                     <Text variant="headingMd" as="h2">No items in cart</Text>
                     <Text>Add products to your cart to create a quote</Text>
-                    <Button onClick={() => setCurrentScreen('home')}>
+                    <Button onClick={() => navigate('/')}>
                       Continue Shopping
                     </Button>
                   </BlockStack>
@@ -583,7 +627,7 @@ const VellumApp = () => {
                     <Grid>
                       <Grid.Cell columnSpan={{xs: 8, sm: 8, md: 8, lg: 8, xl: 8}}>
                         {/* Continue Shopping */}
-                        <Button variant="secondary" onClick={() => setCurrentScreen('home')}>
+                        <Button variant="secondary" onClick={() => navigate('/')}>
                           Continue Shopping
                         </Button>
                       </Grid.Cell>
@@ -635,8 +679,8 @@ const VellumApp = () => {
     </Page>
   );
 
-  // Screen router
-  const renderScreen = () => {
+  // Screen rendering based on current route
+  const renderCurrentScreen = () => {
     switch (currentScreen) {
       case 'home':
         return (
@@ -649,6 +693,7 @@ const VellumApp = () => {
             constructionSafetyShirts={constructionSafetyShirts}
             currentPersona={currentPersona}
             addToCart={addToCart}
+            cartItems={cartItems}
           />
         );
       case 'products':
@@ -656,7 +701,7 @@ const VellumApp = () => {
       case 'category-products':
         return (
           <CategoryProductsScreen 
-            selectedCategoryId={selectedCategoryId}
+            selectedCategoryId={categoryId}
             onNavigate={handleNavigate}
             onProductClick={handleProductClick}
             categoriesData={categoriesData}
@@ -668,7 +713,7 @@ const VellumApp = () => {
       case 'product-detail':
         return (
           <ProductDetailScreen 
-            selectedProductId={selectedProductId}
+            selectedProductId={productId}
             onNavigate={handleNavigate}
             allProductsData={allProductsData}
             categoriesData={categoriesData}
@@ -685,7 +730,19 @@ const VellumApp = () => {
       case 'orders':
         return <OrdersScreen />;
       default:
-        return <HomeScreen onNavigate={handleNavigate} onProductClick={handleProductClick} />;
+        return (
+          <HomeScreen 
+            onNavigate={handleNavigate} 
+            onProductClick={handleProductClick}
+            categoriesData={categoriesData}
+            safetyProducts={safetyProducts}
+            safetyShoes={safetyShoes}
+            constructionSafetyShirts={constructionSafetyShirts}
+            currentPersona={currentPersona}
+            addToCart={addToCart}
+            cartItems={cartItems}
+          />
+        );
     }
   };
 
@@ -698,6 +755,28 @@ const VellumApp = () => {
     />
   ) : null;
 
+  return (
+    <Frame>
+      <div style={{ minHeight: '100vh', background: '#f6f6f7' }}>
+        <HeaderComponent />
+        <div style={{ padding: '24px' }}>
+          {renderCurrentScreen()}
+        </div>
+      </div>
+      {toastMarkup}
+      <style>{`
+        @keyframes cartPulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+      `}</style>
+    </Frame>
+  );
+};
+
+// Main App component with Router and AppProvider
+const VellumApp = () => {
   return (
     <AppProvider 
       i18n={{}} 
@@ -718,22 +797,19 @@ const VellumApp = () => {
         }
       }}
     >
-      <Frame>
-        <div style={{ minHeight: '100vh', background: '#f6f6f7' }}>
-          <HeaderComponent />
-          <div style={{ padding: '24px' }}>
-            {renderScreen()}
-          </div>
-        </div>
-        {toastMarkup}
-        <style jsx global>{`
-          @keyframes cartPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-          }
-        `}</style>
-      </Frame>
+      <Router>
+        <Routes>
+          <Route path="/" element={<AppContent />} />
+          <Route path="/products" element={<AppContent />} />
+          <Route path="/category/:categoryId" element={<AppContent />} />
+          <Route path="/product/:productId" element={<AppContent />} />
+          <Route path="/cart" element={<AppContent />} />
+          <Route path="/orders" element={<AppContent />} />
+          <Route path="/business-application" element={<AppContent />} />
+          <Route path="/quote-builder" element={<AppContent />} />
+          <Route path="*" element={<AppContent />} />
+        </Routes>
+      </Router>
     </AppProvider>
   );
 };

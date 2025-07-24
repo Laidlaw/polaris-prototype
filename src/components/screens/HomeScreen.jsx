@@ -18,7 +18,8 @@ const HomeScreen = ({
   categoriesData,
   safetyProducts,
   constructionSafetyShirts,
-  safetyShoes
+  safetyShoes,
+  cartItems
 }) => {
   // Get featured products from different categories
   const featuredProducts = [
@@ -57,6 +58,11 @@ const HomeScreen = ({
                   <Button variant="primary" size="large" onClick={() => onNavigate('products')}>
                     Shop All Products
                   </Button>
+                  {cartItems && cartItems.length > 0 && (
+                    <Button variant="secondary" size="large" onClick={() => onNavigate('quotes')}>
+                      🛒 View Cart ({cartItems.length})
+                    </Button>
+                  )}
                   <Button variant="secondary" size="large" onClick={() => onNavigate('business-app')}>
                     Apply for Business Account
                   </Button>
